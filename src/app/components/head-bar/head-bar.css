@@ -63,4 +63,7 @@ button:hover fa-icon {
         padding: 8px 14px;
         font-size: 11px;
     }
+    h1 {
+    cursor: pointer;
+    }
 }

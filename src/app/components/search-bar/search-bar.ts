@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { MovieService } from '../../services/movie-service';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,10 +11,13 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearchBar {
   faMagnifyingGlass = faMagnifyingGlass;
+  movieService = inject(MovieService);
 
-  @Output() onSearch = new EventEmitter<string>();
-
-  search(title: string) {
-    this.onSearch.emit(title.trim());
+  getMovieByTitle(title: string) {
+    this.movieService.getMovieList().subscribe(movies => {
+      this.movieService.movieList.set(
+        movies.filter(m => m.title.toLowerCase().includes(title.toLowerCase().trim()))
+      );
+    });
   }
 }

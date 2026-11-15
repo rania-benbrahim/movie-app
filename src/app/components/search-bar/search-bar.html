@@ -4,9 +4,10 @@
         <input
             type="text"
             id="title"
+            placeholder="e.g : Dexter"
             #movieTitle
-            (keyup.enter)="search(movieTitle.value)"
+            (input)="getMovieByTitle(movieTitle.value)"
         />
-        <fa-icon [icon]="faMagnifyingGlass" (click)="search(movieTitle.value)" />
+        <fa-icon [icon]="faMagnifyingGlass" (click)="getMovieByTitle(movieTitle.value)" />
     </div>
 </div>

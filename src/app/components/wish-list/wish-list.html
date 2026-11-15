@@ -1,1 +1,14 @@
-<p>wish-list works!</p>
+<div class="container">
+    @for (movie of movieService.wishList(); track movie.id) {
+        <div class="movie-card" (click)="navigateTo(movie)">
+            <div>
+                <img [src]="`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="">
+            </div>
+            <div class="movie-detail">
+                <h2>{{movie.title}}</h2>
+            </div>
+        </div>
+    } @empty {
+        <p class="empty">Ta wishlist est vide. Ajoute des films depuis leur page détail ❤️</p>
+    }
+</div>
