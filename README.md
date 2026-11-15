@@ -1,59 +1,79 @@
-# MovieApp
+# Plateforme de recrutement digitale – Lions Club IHEC Carthage
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.4.
+Plateforme développée pour digitaliser le recrutement des nouveaux membres du Lions Club IHEC Carthage (mandat 2026-2027), en remplacement des fiches d'évaluation papier.
 
-## Development server
+**Utilisée en conditions réelles : 340 candidatures traitées.**
 
-To start a local development server, run:
+## Problème de départ
 
-```bash
-ng serve
-```
+Les évaluateurs notaient les candidats sur papier, puis le bureau devait regrouper et trier les fiches à la main : un processus long, difficile à comparer et source d'erreurs.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Fonctionnalités
 
-## Code scaffolding
+- **Formulaire de candidature en 4 étapes** (application web), avec photo, choix des départements et réservation d'un créneau d'entretien en temps réel selon les places restantes
+- **Email de confirmation automatique** avec un lien personnel et sécurisé pour modifier son créneau
+- **Plateforme jury** : liste des candidats du jour, fiche complète de chaque candidat, guide d'entretien adapté au département, notation sur 8 critères et avis Favorable / À discuter / Défavorable
+- **Tableau de bord** dans Google Sheets : moyennes, nombre d'avis et décision provisoire pour chaque candidat
+- **Rappels automatiques** envoyés la veille de chaque entretien
+- **Envoi des résultats** par email (acceptation, liste d'attente, refus), avec confirmation avant envoi
+- **Gestion des accès concurrents** (verrou) pour éviter les doubles réservations quand plusieurs candidats s'inscrivent en même temps
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Technologies
 
-```bash
-ng generate component component-name
-```
+- Google Apps Script (JavaScript)
+- Google Sheets (base de données)
+- HTML / CSS (interfaces web adaptées au mobile)
+- Gmail et Google Drive (emails et stockage des photos)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Structure du projet
 
-```bash
-ng generate --help
-```
+| Fichier | Rôle |
+|---|---|
+| `src/Code.gs` | Logique serveur : pages web, enregistrement des candidatures, créneaux, évaluations, emails |
+| `src/Candidature.html` | Formulaire de candidature |
+| `src/Creneau.html` | Page de modification du créneau |
+| `src/Jury.html` | Plateforme d'évaluation pour le jury |
 
-## Building
+## Configuration
 
-To build the project run:
+Avant de déployer le projet, renseigner dans `Code.gs` :
 
-```bash
-ng build
-```
+- `DOSSIER_PHOTOS_ID` : l'ID du dossier Google Drive qui reçoit les photos
+- `CLE_SECRETE` : une chaîne secrète servant à sécuriser les liens personnels
+- `LIEN_GROUPE` : le lien du groupe de discussion des nouveaux membres
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Mon rôle
 
-## Running unit tests
+En tant qu'Adjointe Secrétaire du club, j'ai conçu et développé l'ensemble de la plateforme, formé les recruteurs à son utilisation, puis assuré son suivi pendant toute la période de recrutement.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Aperçu
 
-```bash
-ng test
-```
+*Les données personnelles des candidats et des évaluateurs ont été masquées. Les captures du formulaire en ligne et de la plateforme jury utilisent des données fictives.*
 
-## Running end-to-end tests
+### Avant / après : la candidature
+| Avant : formulaire papier | Après : formulaire en ligne (mobile) |
+|---|---|
+| ![Formulaire papier](captures/formulaire-papier.png) | ![Formulaire en ligne](captures/formulaire-en-ligne.png) |
 
-For end-to-end (e2e) testing, run:
+### Plateforme jury (mobile)
+| Liste des candidats du jour | Fiche d'évaluation |
+|---|---|
+| ![Liste jury](captures/jury-liste.png) | ![Fiche jury](captures/jury-fiche.png) |
 
-```bash
-ng e2e
-```
+### Base des candidats
+![Base des candidats](captures/base-candidats.png)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Évaluations du jury
+![Évaluations](captures/evaluations.png)
 
-## Additional Resources
+### Tableau de bord et décisions
+![Tableau de bord](captures/tableau-de-bord.png)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Emails automatiques
+| Confirmation de candidature | Acceptation | Affectation au département |
+|---|---|---|
+| ![Confirmation](captures/email-confirmation.png) | ![Acceptation](captures/email-acceptation.png) | ![Affectation](captures/email-affectation.png) |
+
+---
+
+Les données réelles des candidats ne sont pas publiées.
