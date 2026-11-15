@@ -1,33 +1,43 @@
 .container {
     display: flex;
-    justify-content: flex-end;
-    padding: 20px 40px;
-    background: linear-gradient(90deg, #000000 0%, #1c1c1c 100%);
-    border-bottom: 3px solid #f5c518;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 40px;
+    background: linear-gradient(90deg, #f5c518 0%, #ffd84d 50%, #f5c518 100%);
+    border-bottom: 3px solid #0b0b0b;
+}
+
+.tagline {
+    margin: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    color: #0b0b0b;
 }
 
 .search-container {
     display: flex;
     align-items: center;
     gap: 12px;
-    width: 320px;
+    width: 340px;
     padding: 8px 18px;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    background-color: #0b0b0b;
+    border: 2px solid #0b0b0b;
     border-radius: 30px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .search-container:focus-within {
-    border-color: #f5c518;
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.25);
+    box-shadow: 0 0 0 4px rgba(11, 11, 11, 0.2);
 }
 
 label {
-    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: #f5c518;
 }
@@ -49,21 +59,26 @@ input::placeholder {
 }
 
 fa-icon {
-    color: #ffffff;
+    color: #f5c518;
     font-size: 16px;
     cursor: pointer;
-    transition: color 0.25s ease, transform 0.25s ease;
+    transition: transform 0.25s ease;
 }
 
 fa-icon:hover {
-    color: #f5c518;
     transform: scale(1.2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .container {
-        justify-content: center;
-        padding: 16px 20px;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 18px;
+    }
+
+    .tagline {
+        text-align: center;
+        font-size: 15px;
     }
 
     .search-container {

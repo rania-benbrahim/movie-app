@@ -1,0 +1,22 @@
+<button class="random-btn" (click)="pick()">
+    <fa-icon [icon]="faShuffle" />
+    {{ movieService.t('Ce soir, je regarde quoi ?', 'What should I watch tonight?') }}
+</button>
+
+@if (spinning()) {
+    <div class="overlay">
+        @if (current(); as movie) {
+            <div class="roulette" [class.done]="done()">
+                <p class="hint">
+                    @if (done()) {
+                        {{ movieService.t('Ce soir, ce sera…', "Tonight, it's…") }}
+                    } @else {
+                        {{ movieService.t('Le hasard choisit pour toi…', 'Fate is choosing for you…') }}
+                    }
+                </p>
+                <img [src]="movieService.imageUrl + 'w500' + movie.poster_path" alt="">
+                <h3>{{ movie.title }}</h3>
+            </div>
+        }
+    </div>
+}

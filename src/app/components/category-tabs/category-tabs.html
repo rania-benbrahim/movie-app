@@ -1,0 +1,49 @@
+<section class="toolbar">
+
+    <!-- Les 4 salles -->
+    <nav class="tabs">
+        @for (cat of movieService.categories; track cat.key) {
+            <button
+                class="tab"
+                [class.active]="movieService.category() === cat.key"
+                (click)="movieService.changeCategory(cat.key)"
+            >
+                {{ movieService.label(cat.key) }}
+            </button>
+        }
+    </nav>
+
+    <!-- Genres -->
+    <div class="genres">
+        <button
+            class="chip"
+            [class.active]="movieService.selectedGenre() === null"
+            (click)="selectGenre(null)"
+        >{{ movieService.t('Tous', 'All') }}</button>
+
+        @for (genre of movieService.genres(); track genre.id) {
+            <button
+                class="chip"
+                [class.active]="movieService.selectedGenre() === genre.id"
+                (click)="selectGenre(genre.id)"
+            >{{ genre.name }}</button>
+        }
+    </div>
+
+    <!-- Tri + film au hasard -->
+    <div class="options">
+        <label class="sort">
+            {{ movieService.t('Trier par', 'Sort by') }}
+            <select #sort (change)="changeSort(sort.value)">
+                @for (option of movieService.sortOptions; track option.key) {
+                    <option [value]="option.key" [selected]="movieService.sortBy() === option.key">
+                        {{ movieService.label(option.key) }}
+                    </option>
+                }
+            </select>
+        </label>
+
+        <app-random-pick />
+    </div>
+
+</section>

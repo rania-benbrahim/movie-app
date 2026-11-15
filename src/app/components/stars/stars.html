@@ -1,0 +1,11 @@
+<span class="stars" [class.editable]="editable" (mouseleave)="onLeave()">
+    @for (position of positions; track position) {
+        <span
+            class="star"
+            [class]="state(position)"
+            [style.font-size.px]="size"
+            (mouseenter)="onHover(position)"
+            (click)="select(position); $event.stopPropagation()"
+        >★</span>
+    }
+</span>

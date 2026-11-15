@@ -1,14 +1,60 @@
+<app-category-tabs />
+
 <div class="container">
-    @for (movie of movieService.movieList(); track movie.id) {
-        <div class="movie-card" (click)="navigateTo(movie)">
-            <div>
-                <img [src]="`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="">
+    @if (movieService.loading()) {
+
+        @for (item of skeletons; track item) {
+            <div class="movie-card skeleton">
+                <div class="poster shimmer"></div>
+                <div class="movie-detail">
+                    <div class="line shimmer"></div>
+                    <div class="line short shimmer"></div>
+                </div>
             </div>
-            <div class="movie-detail">
-                <h2>{{movie.title}}</h2>
+        }
+
+    } @else {
+
+        @for (movie of movieService.displayedMovies(); track movie.id) {
+            <div class="movie-card" (click)="navigateTo(movie)">
+                <div class="poster">
+                    <img [src]="movieService.imageUrl + 'w500' + movie.poster_path" [alt]="movie.title" loading="lazy">
+
+                    <div class="badges">
+                        @if (movieService.isUpcoming(movie)) {
+                            <span class="badge upcoming">
+                                {{ movieService.t('Dans', 'In') }} {{ movieService.daysUntil(movie.release_date) }} {{ movieService.t('j', 'd') }}
+                            </span>
+                        } @else if (movieService.isNew(movie)) {
+                            <span class="badge new">{{ movieService.t('Nouveau', 'New') }}</span>
+                        }
+                        @if (movieService.isFavorite(movie)) {
+                            <span class="badge favorite">{{ movieService.t('Coup de cœur', 'Must see') }}</span>
+                        }
+                    </div>
+
+                    <button
+                        class="wish-btn"
+                        [class.active]="movieService.isInWishlist(movie.id)"
+                        (click)="toggleWish(movie, $event)"
+                        [attr.aria-label]="movieService.t('Ajouter à la watchlist', 'Add to watchlist')"
+                    >
+                        <fa-icon [icon]="faHeart" />
+                    </button>
+                </div>
+
+                <div class="movie-detail">
+                    <h2>{{ movie.title }}</h2>
+                    <div class="meta">
+                        <app-stars [value]="movieService.toStars(movie.vote_average)" [size]="14" />
+                        <span class="vote">{{ movie.vote_average.toFixed(1) }}</span>
+                        <span class="year">{{ movie.release_date.slice(0, 4) }}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    } @empty {
-        <p class="empty">Aucun film trouvé.</p>
+        } @empty {
+            <p class="empty">{{ movieService.t('Aucun film trouvé.', 'No movie found.') }}</p>
+        }
+
     }
 </div>

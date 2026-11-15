@@ -1,7 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap');
+
+:root {
+    --jaune: #f5c518;
+    --or: #c8962a;
+    --noir: #0b0b0b;
+    --creme: #d9cfb4;
+    --rouge: #a3121c;
+}
 
 * {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -9,4 +21,9 @@ body {
     font-family: 'Montserrat', Verdana, sans-serif;
     background-color: #f7f7f7;
     color: #111111;
+}
+
+::selection {
+    background-color: #f5c518;
+    color: #0b0b0b;
 }

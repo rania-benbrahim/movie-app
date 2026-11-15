@@ -1,0 +1,103 @@
+<section class="page">
+
+    <!-- ---------- La carte de membre ---------- -->
+    <div class="pass-card">
+        <div class="pass-left">
+            <img src="logo.svg" alt="" class="pass-logo">
+            <div>
+                <p class="pass-brand">RANIA <em>Pictures</em></p>
+                <h1>Ciné-Pass</h1>
+                <p class="pass-sub">{{ movieService.t('Mon année de cinéma en chiffres', 'My year at the movies in numbers') }}</p>
+            </div>
+        </div>
+        <div class="pass-right">
+            <span class="pass-label">{{ movieService.t('Films vus', 'Watched') }}</span>
+            <span class="pass-big">{{ stats().seen }}<small>/{{ stats().total }}</small></span>
+            <div class="progress">
+                <div class="progress-fill" [style.width.%]="stats().progress"></div>
+            </div>
+            <span class="pass-small">{{ stats().progress }}% {{ movieService.t('de ma watchlist', 'of my watchlist') }}</span>
+        </div>
+    </div>
+
+    @if (stats().total === 0) {
+
+        <div class="empty">
+            <p>{{ movieService.t('Ton Ciné-Pass est encore vide. Ajoute des films à ta watchlist pour voir tes statistiques !', 'Your Ciné-Pass is empty. Add movies to your watchlist to see your stats!') }}</p>
+            <button class="btn" (click)="goHome()">{{ movieService.t('Découvrir les films', 'Discover movies') }}</button>
+        </div>
+
+    } @else {
+
+        <!-- ---------- Indicateurs ---------- -->
+        <div class="kpis">
+            <div class="kpi">
+                <span class="kpi-label">{{ movieService.t('Dans ma watchlist', 'In my watchlist') }}</span>
+                <span class="kpi-value">{{ stats().total }}</span>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">{{ movieService.t('Encore à voir', 'Still to watch') }}</span>
+                <span class="kpi-value">{{ stats().toWatch }}</span>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">{{ movieService.t("Temps devant l'écran", 'Screen time') }}</span>
+                <span class="kpi-value">{{ stats().hours }}h{{ stats().minutes.toString().padStart(2, '0') }}</span>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">{{ movieService.t('Note moyenne TMDB', 'Average TMDB rating') }}</span>
+                <span class="kpi-value">{{ stats().averageTmdb.toFixed(1) }}<small>/10</small></span>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">{{ movieService.t('Ma note moyenne', 'My average rating') }}</span>
+                @if (stats().averageMine > 0) {
+                    <span class="kpi-value stars-value">
+                        <app-stars [value]="stats().averageMine" [size]="20" />
+                        {{ stats().averageMine.toFixed(1) }}
+                    </span>
+                } @else {
+                    <span class="kpi-hint">{{ movieService.t('Note les films vus dans ta watchlist', 'Rate watched movies in your watchlist') }}</span>
+                }
+            </div>
+            <div class="kpi highlight">
+                <span class="kpi-label">{{ movieService.t('Genre préféré', 'Favorite genre') }}</span>
+                <span class="kpi-value text">{{ genreStats()[0]?.label || '—' }}</span>
+            </div>
+        </div>
+
+        <!-- ---------- Graphiques en barres ---------- -->
+        <div class="charts">
+            <div class="chart">
+                <h2>{{ movieService.t('Mes genres', 'My genres') }}</h2>
+                @for (line of genreStats(); track line.label) {
+                    <div class="bar-line">
+                        <span class="bar-label">{{ line.label }}</span>
+                        <div class="bar">
+                            <div class="bar-fill" [style.width.%]="line.percent"></div>
+                        </div>
+                        <span class="bar-count">{{ line.count }}</span>
+                    </div>
+                } @empty {
+                    <p class="kpi-hint">{{ movieService.t('Ajoute des films depuis leur page détail pour connaître leurs genres.', 'Add movies from their detail page to know their genres.') }}</p>
+                }
+            </div>
+
+            <div class="chart">
+                <h2>{{ movieService.t('Langues originales', 'Original languages') }}</h2>
+                @for (line of languageStats(); track line.label) {
+                    <div class="bar-line">
+                        <span class="bar-label">{{ line.label }}</span>
+                        <div class="bar">
+                            <div class="bar-fill red" [style.width.%]="line.percent"></div>
+                        </div>
+                        <span class="bar-count">{{ line.count }}</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="center">
+            <button class="btn" (click)="goToWishlist()">{{ movieService.t('Voir ma watchlist', 'See my watchlist') }}</button>
+        </div>
+
+    }
+</section>

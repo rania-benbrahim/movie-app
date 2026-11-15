@@ -1,0 +1,29 @@
+.stars {
+    display: inline-flex;
+    gap: 2px;
+    line-height: 1;
+}
+
+.full {
+    color: #f5c518;
+}
+
+.half {
+    background: linear-gradient(90deg, #f5c518 50%, var(--star-empty, #d6d0c0) 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.empty {
+    color: var(--star-empty, #d6d0c0);
+}
+
+.editable span {
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.editable span:hover {
+    transform: scale(1.25);
+}

@@ -1,69 +1,208 @@
+.marquee {
+    position: relative;
+    background: radial-gradient(ellipse at top, #1f1a0c 0%, #0b0b0b 70%);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.bulbs {
+    height: 12px;
+    background: radial-gradient(circle, #fff3c4 0 2px, #f5c518 3px, transparent 4.5px) 0 50% / 24px 12px repeat-x;
+    filter: drop-shadow(0 0 4px rgba(245, 197, 24, 0.9));
+    animation: chase 1.2s linear infinite;
+}
+
+@keyframes chase {
+    to {
+        background-position: 24px 50%;
+    }
+}
+
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 40px;
-    background: linear-gradient(135deg, #f5c518 0%, #ffd84d 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    gap: 20px;
+    padding: 18px 40px;
 }
 
-h1 {
-    margin: 0;
-    font-size: 32px;
-    font-style: italic;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    transition: transform 0.4s ease;
+}
+
+.brand:hover .logo {
+    transform: rotate(-8deg) scale(1.08);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
     font-weight: 900;
-    letter-spacing: 2px;
-    color: #000000;
-    text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.4);
+    letter-spacing: 6px;
+    line-height: 1;
+    color: #ffffff;
 }
 
-button {
+.name em {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #ffe27a 0%, #f5c518 50%, #c8962a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.slogan {
+    margin-top: 6px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: #d9cfb4;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.lang {
+    display: flex;
+    padding: 3px;
+    border: 1px solid rgba(245, 197, 24, 0.5);
+    border-radius: 20px;
+}
+
+.lang-btn {
+    padding: 5px 10px;
+    background: transparent;
+    color: #d9cfb4;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.lang-btn.active {
+    background-color: #f5c518;
+    color: #0b0b0b;
+}
+
+.pass,
+.wish {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
     border-radius: 30px;
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
+    white-space: nowrap;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-button:hover {
+.pass {
+    background-color: transparent;
+    color: #f5c518;
+    border: 2px solid #f5c518;
+}
+
+.pass:hover {
+    background-color: rgba(245, 197, 24, 0.12);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-fa-icon {
-    color: #e63946;
-    transition: transform 0.25s ease;
+.wish {
+    background: linear-gradient(135deg, #ffe27a 0%, #f5c518 60%, #e0ac1d 100%);
+    color: #000000;
+    border: 2px solid transparent;
+    box-shadow: 0 0 18px rgba(245, 197, 24, 0.35);
 }
 
-button:hover fa-icon {
-    transform: scale(1.25);
+.wish:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(245, 197, 24, 0.6);
+}
+
+.wish fa-icon {
+    color: #c0392b;
+}
+
+.count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    background-color: #000000;
+    color: #f5c518;
+    border-radius: 11px;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 600px) {
     .container {
-        padding: 22px 20px;
+        padding: 14px 18px;
     }
 
-    h1 {
-        font-size: 22px;
+    .logo {
+        width: 46px;
+        height: 46px;
     }
 
-    button {
-        padding: 8px 14px;
+    .name {
+        font-size: 20px;
+        letter-spacing: 3px;
+    }
+
+    .slogan {
+        display: none;
+    }
+
+    .actions {
+        gap: 8px;
+    }
+
+    .pass,
+    .wish {
+        padding: 8px 12px;
         font-size: 11px;
-    }
-    h1 {
-    cursor: pointer;
     }
 }

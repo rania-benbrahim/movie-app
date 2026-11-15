@@ -1,0 +1,96 @@
+.random-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 22px;
+    background: linear-gradient(135deg, #a3121c 0%, #c2202a 100%);
+    color: #ffffff;
+    border: 2px solid #c8962a;
+    border-radius: 30px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(163, 18, 28, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.random-btn:hover {
+    transform: translateY(-2px) rotate(-1deg);
+    box-shadow: 0 10px 26px rgba(163, 18, 28, 0.5);
+}
+
+.random-btn fa-icon {
+    color: #f5c518;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(31, 26, 12, 0.92) 0%, rgba(0, 0, 0, 0.96) 70%);
+    animation: fade-in 0.3s ease;
+}
+
+.roulette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.hint {
+    margin: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: #d9cfb4;
+}
+
+.roulette img {
+    width: 240px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border: 3px solid #c8962a;
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(245, 197, 24, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.roulette h3 {
+    max-width: 320px;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.roulette.done img {
+    transform: scale(1.08);
+    box-shadow: 0 0 60px rgba(245, 197, 24, 0.75);
+}
+
+.roulette.done h3 {
+    color: #f5c518;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .random-btn {
+        justify-content: center;
+    }
+
+    .roulette img {
+        width: 180px;
+    }
+}

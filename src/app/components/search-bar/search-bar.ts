@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { MovieService } from '../../services/movie-service';
@@ -12,12 +13,14 @@ import { MovieService } from '../../services/movie-service';
 export class SearchBar {
   faMagnifyingGlass = faMagnifyingGlass;
   movieService = inject(MovieService);
+  router = inject(Router);
 
   getMovieByTitle(title: string) {
-    this.movieService.getMovieList().subscribe(movies => {
-      this.movieService.movieList.set(
-        movies.filter(m => m.title.toLowerCase().includes(title.toLowerCase().trim()))
-      );
-    });
+    this.movieService.searchMovies(title);
+
+    // Si on cherche depuis une autre page, on revient à la liste
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']);
+    }
   }
 }

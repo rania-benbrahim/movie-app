@@ -1,14 +1,77 @@
-<div class="container">
-    @for (movie of movieService.wishList(); track movie.id) {
-        <div class="movie-card" (click)="navigateTo(movie)">
-            <div>
-                <img [src]="`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="">
-            </div>
-            <div class="movie-detail">
-                <h2>{{movie.title}}</h2>
-            </div>
+<section class="page">
+    <header class="page-header">
+        <div>
+            <p class="kicker">RANIA PICTURES</p>
+            <h1>{{ movieService.t('Ma Watchlist', 'My Watchlist') }}</h1>
         </div>
-    } @empty {
-        <p class="empty">Ta wishlist est vide. Ajoute des films depuis leur page détail ❤️</p>
-    }
-</div>
+        <button class="pass-link" (click)="goToPass()">
+            <fa-icon [icon]="faTicket" />
+            {{ movieService.t('Voir mon Ciné-Pass', 'See my Ciné-Pass') }}
+        </button>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab" [class.active]="tab() === 'toWatch'" (click)="tab.set('toWatch')">
+            {{ movieService.t('À voir', 'To watch') }}
+            <span class="count">{{ movieService.toWatch().length }}</span>
+        </button>
+        <button class="tab" [class.active]="tab() === 'seen'" (click)="tab.set('seen')">
+            {{ movieService.t('Déjà vus', 'Watched') }}
+            <span class="count">{{ movieService.seenMovies().length }}</span>
+        </button>
+    </nav>
+
+    <div class="grid">
+        @for (movie of movies(); track movie.id) {
+            <div class="card">
+                <div class="poster" (click)="navigateTo(movie)">
+                    <img [src]="movieService.imageUrl + 'w500' + movie.poster_path" [alt]="movie.title">
+                    <button
+                        class="remove"
+                        (click)="movieService.removeFromWishlist(movie.id); $event.stopPropagation()"
+                        [attr.aria-label]="movieService.t('Retirer', 'Remove')"
+                    >
+                        <fa-icon [icon]="faXmark" />
+                    </button>
+                    @if (movie.seen) {
+                        <span class="stamp">{{ movieService.t('VU', 'SEEN') }}</span>
+                    }
+                </div>
+
+                <div class="info">
+                    <h2>{{ movie.title }}</h2>
+
+                    @if (movie.seen) {
+                        <p class="label">{{ movieService.t('Ma note', 'My rating') }}</p>
+                        <app-stars
+                            [value]="movie.myRating || 0"
+                            [size]="20"
+                            [editable]="true"
+                            (rate)="movieService.rateMovie(movie.id, $event)"
+                        />
+                    }
+
+                    <button class="seen-btn" [class.is-seen]="movie.seen" (click)="movieService.toggleSeen(movie.id)">
+                        @if (movie.seen) {
+                            <fa-icon [icon]="faRotateLeft" />
+                            {{ movieService.t('Remettre à voir', 'Move back') }}
+                        } @else {
+                            <fa-icon [icon]="faEye" />
+                            {{ movieService.t("Je l'ai vu", 'I watched it') }}
+                        }
+                    </button>
+                </div>
+            </div>
+        } @empty {
+            <div class="empty">
+                <img src="logo.svg" alt="">
+                @if (tab() === 'toWatch') {
+                    <p>{{ movieService.t('Aucun film à voir pour le moment.', 'Nothing to watch yet.') }}</p>
+                    <button class="go" (click)="goHome()">{{ movieService.t('Découvrir les films', 'Discover movies') }}</button>
+                } @else {
+                    <p>{{ movieService.t("Tu n'as encore marqué aucun film comme vu.", "You haven't marked any movie as watched yet.") }}</p>
+                }
+            </div>
+        }
+    </div>
+</section>

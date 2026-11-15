@@ -1,4 +1,43 @@
-<div class="container">
-    <h1 (click)="navigateToHome()">My Movie-DB</h1>
-    <button (click)="navigateToWishList()">Wish List <fa-icon [icon]="faHeart" /></button>
-</div>
+<header class="marquee">
+    <div class="bulbs"></div>
+
+    <div class="container">
+        <a class="brand" (click)="navigateToHome()">
+            <img src="logo.svg" alt="Rania Pictures" class="logo">
+            <div class="brand-text">
+                <span class="name">RANIA <em>Pictures</em></span>
+                <span class="slogan">Every story deserves a front-row seat</span>
+            </div>
+        </a>
+
+        <div class="actions">
+            <div class="lang">
+                <button
+                    class="lang-btn"
+                    [class.active]="movieService.language() === 'fr-FR'"
+                    (click)="movieService.changeLanguage('fr-FR')"
+                >FR</button>
+                <button
+                    class="lang-btn"
+                    [class.active]="movieService.language() === 'en-US'"
+                    (click)="movieService.changeLanguage('en-US')"
+                >EN</button>
+            </div>
+
+            <button class="pass" (click)="navigateToPass()">
+                <fa-icon [icon]="faTicket" />
+                Ciné-Pass
+            </button>
+
+            <button class="wish" (click)="navigateToWishList()">
+                <fa-icon [icon]="faHeart" />
+                Watchlist
+                @if (movieService.wishList().length > 0) {
+                    <span class="count">{{ movieService.wishList().length }}</span>
+                }
+            </button>
+        </div>
+    </div>
+
+    <div class="bulbs"></div>
+</header>

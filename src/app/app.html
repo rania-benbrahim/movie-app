@@ -1,3 +1,31 @@
+<div class="curtain" aria-hidden="true">
+    <div class="panel left"></div>
+    <div class="panel right"></div>
+    <img src="logo.svg" class="curtain-logo" alt="">
+</div>
+
 <app-head-bar></app-head-bar>
 <app-search-bar></app-search-bar>
-<router-outlet></router-outlet>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+    <div class="footer-brand">
+        <img src="logo.svg" alt="" class="footer-logo">
+        <div>
+            <p class="footer-name">RANIA <em>Pictures</em></p>
+            <p class="footer-slogan">Every story deserves a front-row seat</p>
+        </div>
+    </div>
+
+    <p class="footer-tmdb">
+        {{ movieService.t(
+            "Données et images fournies par TMDB. Ce site utilise l'API TMDB mais n'est ni approuvé ni certifié par TMDB.",
+            'Data and images provided by TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.'
+        ) }}
+    </p>
+
+    <p class="footer-copy">© {{ year }} Rania Ben Brahim · IHEC Carthage</p>
+</footer>

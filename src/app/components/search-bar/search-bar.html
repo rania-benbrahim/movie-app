@@ -1,6 +1,10 @@
 <div class="container">
+    <p class="tagline">
+        {{ movieService.t('Ce soir', 'Tonight') }}
+        · {{ movieService.label(movieService.category()) }}
+    </p>
     <div class="search-container">
-        <label for="title">Title</label>
+        <label for="title">{{ movieService.t('Titre', 'Title') }}</label>
         <input
             type="text"
             id="title"
